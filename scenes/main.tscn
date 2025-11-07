@@ -1,0 +1,189 @@
+[gd_scene load_steps=19 format=3 uid="uid://b5vkqx3yxqytr"]
+
+[ext_resource type="Script" uid="uid://corr53xrqsgdj" path="res://scripts/main.gd" id="1_bwb8r"]
+[ext_resource type="PackedScene" uid="uid://cq7x8yxqytr2" path="res://scenes/player.tscn" id="2_player"]
+[ext_resource type="Texture2D" uid="uid://bdneoxn6ilgnb" path="res://sprites/background/concert_path.png" id="2_tipki"]
+[ext_resource type="Texture2D" uid="uid://fnc8uxsvwfhe" path="res://sprites/environment/ground.png" id="3_85g3d"]
+[ext_resource type="Texture2D" uid="uid://cxh0b8w53y5gc" path="res://sprites/obstacles/fence.png" id="3_fence"]
+[ext_resource type="Script" uid="uid://bcy1rb2pcctgi" path="res://scripts/obstacle.gd" id="3_obstacle"]
+[ext_resource type="Texture2D" uid="uid://cpak6v4dh5bhf" path="res://sprites/environment/platform.png" id="3_platform"]
+[ext_resource type="PackedScene" path="res://scenes/police.tscn" id="4_police"]
+[ext_resource type="Script" uid="uid://cj0qbiyhhyfdy" path="res://scripts/collectible.gd" id="5_collectible"]
+[ext_resource type="Script" uid="uid://ce0de4p3phg3x" path="res://scripts/friend.gd" id="6_friend"]
+[ext_resource type="Texture2D" uid="uid://j2ysu5pwn06c" path="res://sprites/collectibles/water_bottle.png" id="6_o6xl0"]
+[ext_resource type="Texture2D" uid="uid://davbl8dfvmrw3" path="res://sprites/npc/friend.png" id="7_friend"]
+[ext_resource type="Texture2D" uid="uid://ce7xc31sqctrl" path="res://sprites/collectibles/glasses.png" id="8_glasses"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
+size = Vector2(1289, 80)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform1"]
+size = Vector2(200, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform2"]
+size = Vector2(200, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_platform3"]
+size = Vector2(250, 20)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
+size = Vector2(55.75, 19.5)
+
+[node name="Main" type="Node2D"]
+script = ExtResource("1_bwb8r")
+
+[node name="Background" type="TextureRect" parent="."]
+offset_top = -44.0
+offset_right = 1280.0
+offset_bottom = 788.0
+texture = ExtResource("2_tipki")
+
+[node name="Ground" type="StaticBody2D" parent="."]
+position = Vector2(0, 680)
+
+[node name="GroundSprite" type="TextureRect" parent="Ground"]
+texture_repeat = 2
+offset_left = -1.0
+offset_top = 25.0
+offset_right = 1279.0
+offset_bottom = 134.0
+scale = Vector2(1, 0.7)
+texture = ExtResource("3_85g3d")
+stretch_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
+position = Vector2(637.5, 26)
+shape = SubResource("RectangleShape2D_ground")
+
+[node name="Platform1" type="StaticBody2D" parent="."]
+position = Vector2(300, 566)
+
+[node name="PlatformSprite" type="TextureRect" parent="Platform1"]
+texture_repeat = 2
+offset_left = 2.0
+offset_top = 51.0
+offset_right = 203.0
+offset_bottom = 160.0
+scale = Vector2(1, 0.4)
+texture = ExtResource("3_platform")
+stretch_mode = 1
+metadata/_edit_use_anchors_ = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform1"]
+position = Vector2(103, 34)
+shape = SubResource("RectangleShape2D_platform1")
+
+[node name="Platform2" type="StaticBody2D" parent="."]
+position = Vector2(700, 450)
+
+[node name="PlatformSprite" type="TextureRect" parent="Platform2"]
+texture_repeat = 2
+offset_left = -126.0
+offset_top = 94.0
+offset_right = 74.0
+offset_bottom = 203.0
+scale = Vector2(1, 0.4)
+texture = ExtResource("3_platform")
+stretch_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform2"]
+position = Vector2(-26, 84)
+shape = SubResource("RectangleShape2D_platform2")
+
+[node name="Platform3" type="StaticBody2D" parent="."]
+position = Vector2(450, 350)
+
+[node name="PlatformSprite" type="TextureRect" parent="Platform3"]
+texture_repeat = 2
+offset_right = 250.0
+offset_bottom = 7.0
+scale = Vector2(1, 0.4)
+texture = ExtResource("3_platform")
+stretch_mode = 1
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Platform3"]
+position = Vector2(125, 3.5)
+shape = SubResource("RectangleShape2D_platform3")
+
+[node name="Player" parent="." instance=ExtResource("2_player")]
+position = Vector2(32, 656)
+scale = Vector2(0.28, 0.28)
+
+[node name="Obstacle1" type="StaticBody2D" parent="."]
+position = Vector2(600, 620)
+script = ExtResource("3_obstacle")
+
+[node name="Sprite2D" type="Sprite2D" parent="Obstacle1"]
+position = Vector2(-161, -13)
+rotation = -0.23911
+scale = Vector2(0.103674, 0.0886157)
+texture = ExtResource("3_fence")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Obstacle1"]
+position = Vector2(-170, -21)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Police1" parent="." instance=ExtResource("4_police")]
+position = Vector2(882, 657)
+scale = Vector2(0.24, 0.24)
+
+[node name="Glasses1" type="Area2D" parent="."]
+position = Vector2(428, 526)
+script = ExtResource("5_collectible")
+
+[node name="Sprite2D" type="Sprite2D" parent="Glasses1"]
+position = Vector2(274, 9)
+scale = Vector2(0.05, 0.05)
+texture = ExtResource("8_glasses")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Glasses1"]
+position = Vector2(276, 6)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Water1" type="Area2D" parent="."]
+position = Vector2(727, 660)
+script = ExtResource("5_collectible")
+type = 1
+
+[node name="Sprite2D" type="Sprite2D" parent="Water1"]
+position = Vector2(-56, 10)
+scale = Vector2(0.0374609, 0.0364844)
+texture = ExtResource("6_o6xl0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Water1"]
+position = Vector2(-55, 11)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="Friend" type="Area2D" parent="."]
+position = Vector2(1195, 650)
+script = ExtResource("6_friend")
+
+[node name="Sprite2D" type="Sprite2D" parent="Friend"]
+position = Vector2(13.29, 2.00977)
+scale = Vector2(0.135156, 0.132341)
+texture = ExtResource("7_friend")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Friend"]
+position = Vector2(13, 7)
+shape = SubResource("RectangleShape2D_1")
+
+[node name="UI" type="CanvasLayer" parent="."]
+
+[node name="MessageLabel" type="Label" parent="UI"]
+visible = false
+anchors_preset = 8
+anchor_left = 0.5
+anchor_top = 0.5
+anchor_right = 0.5
+anchor_bottom = 0.5
+offset_left = -200.0
+offset_top = -50.0
+offset_right = 200.0
+offset_bottom = 50.0
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_colors/font_color = Color(1, 1, 0, 1)
+theme_override_font_sizes/font_size = 32
+text = "MENSAJE"
+horizontal_alignment = 1
+vertical_alignment = 1

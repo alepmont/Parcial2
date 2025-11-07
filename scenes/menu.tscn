@@ -1,0 +1,67 @@
+[gd_scene load_steps=5 format=3 uid="uid://bm2ho3ylxishb"]
+
+[ext_resource type="Script" uid="uid://p80o3mhlgj81" path="res://scripts/menu.gd" id="1_vjb58"]
+[ext_resource type="Texture2D" uid="uid://d1j8mtpotu08o" path="res://imagenes/inicio_img.png" id="1_yqeox"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_vjb58"]
+bg_color = Color(0.913725, 0.329412, 0.294118, 0.541176)
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_mhnvy"]
+bg_color = Color(0.913725, 0.329412, 0.294118, 0.541176)
+
+[node name="Menu" type="Control"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_vjb58")
+
+[node name="TextureRect" type="TextureRect" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -1.0
+offset_top = -3.0
+offset_right = 3.0
+offset_bottom = 5.0
+grow_horizontal = 2
+grow_vertical = 2
+texture = ExtResource("1_yqeox")
+expand_mode = 3
+
+[node name="VBoxContainer" type="VBoxContainer" parent="."]
+layout_mode = 1
+anchors_preset = -1
+anchor_left = 0.496
+anchor_top = 0.617
+anchor_right = 0.496
+anchor_bottom = 0.617
+offset_left = -176.88
+offset_top = -73.24
+offset_right = 177.12
+offset_bottom = 73.76
+grow_horizontal = 2
+grow_vertical = 2
+theme_override_constants/separation = 12
+
+[node name="inicio" type="Button" parent="VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_vjb58")
+text = "JUGAR"
+
+[node name="salir" type="Button" parent="VBoxContainer"]
+texture_filter = 2
+layout_mode = 2
+size_flags_vertical = 3
+theme_override_font_sizes/font_size = 30
+theme_override_styles/normal = SubResource("StyleBoxFlat_mhnvy")
+text = "SALIR"
+
+[connection signal="pressed" from="VBoxContainer/inicio" to="." method="_on_inicio_pressed"]
+[connection signal="pressed" from="VBoxContainer/salir" to="." method="_on_salir_pressed"]
