@@ -24,8 +24,8 @@ func _ready():
 	# Cargar sonidos (verificar si existen)
 	if ResourceLoader.exists("res://sounds/sfx/jump.wav"):
 		jump_sound = load("res://sounds/sfx/jump.wav")
-	if ResourceLoader.exists("res://sounds/sfx/hurt.wav"):
-		hurt_sound = load("res://sounds/sfx/hurt.wav")
+	if ResourceLoader.exists("res://sounds/sfx/hurt.ogg"):
+		hurt_sound = load("res://sounds/sfx/hurt.ogg")
 	if ResourceLoader.exists("res://sounds/sfx/collect.wav"):
 		collect_sound = load("res://sounds/sfx/collect.wav")
 

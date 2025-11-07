@@ -3,6 +3,7 @@ extends Node2D
 var game_ended = false
 var max_hearts = 3
 var heart_containers = []
+var music_player = null
 
 # Sprites de corazones (se cargarán cuando Godot importe los PNG)
 var heart_full_texture
@@ -21,11 +22,20 @@ func _ready():
 	play_background_music()
 
 func play_background_music():
-	var music_player = AudioStreamPlayer.new()
+	music_player = AudioStreamPlayer.new()
 	music_player.stream = load("res://sounds/music/level_theme.ogg")
 	music_player.volume_db = -10
 	music_player.autoplay = true
 	add_child(music_player)
+	music_player.play()
+	
+	# Configurar para que se repita en loop
+	music_player.finished.connect(_on_music_finished)
+
+func _on_music_finished():
+	# Reiniciar la música solo si el juego no ha terminado
+	if not game_ended and music_player:
+		music_player.play()
 
 func create_hearts():
 	# Crear 3 corazones en la esquina superior izquierda
@@ -52,6 +62,9 @@ func update_health_ui(health):
 func game_over():
 	if not game_ended:
 		game_ended = true
+		# Detener la música de fondo
+		if music_player:
+			music_player.stop()
 		$UI/MessageLabel.text = "GAME OVER"
 		$UI/MessageLabel.visible = true
 		await get_tree().create_timer(2.0).timeout
@@ -60,6 +73,9 @@ func game_over():
 func win_level():
 	if not game_ended:
 		game_ended = true
+		# Detener la música de fondo
+		if music_player:
+			music_player.stop()
 		# Cambiar a la escena de victoria
 		await get_tree().create_timer(0.5).timeout
 		get_tree().change_scene_to_file("res://scenes/victory.tscn")
