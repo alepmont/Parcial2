@@ -1,4 +1,4 @@
-[gd_scene load_steps=19 format=3 uid="uid://b5vkqx3yxqytr"]
+[gd_scene load_steps=21 format=3 uid="uid://b5vkqx3yxqytr"]
 
 [ext_resource type="Script" uid="uid://corr53xrqsgdj" path="res://scripts/main.gd" id="1_bwb8r"]
 [ext_resource type="PackedScene" uid="uid://cq7x8yxqytr2" path="res://scenes/player.tscn" id="2_player"]
@@ -13,9 +13,10 @@
 [ext_resource type="Texture2D" uid="uid://j2ysu5pwn06c" path="res://sprites/collectibles/water_bottle.png" id="6_o6xl0"]
 [ext_resource type="Texture2D" uid="uid://davbl8dfvmrw3" path="res://sprites/npc/friend.png" id="7_friend"]
 [ext_resource type="Texture2D" uid="uid://ce7xc31sqctrl" path="res://sprites/collectibles/glasses.png" id="8_glasses"]
+[ext_resource type="Script" path="res://scripts/touch_controls.gd" id="14_touch"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ground"]
-size = Vector2(1289, 80)
+size = Vector2(1280, 80)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_platform1"]
 size = Vector2(200, 20)
@@ -28,6 +29,9 @@ size = Vector2(250, 20)
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_1"]
 size = Vector2(55.75, 19.5)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_wall"]
+size = Vector2(20, 800)
 
 [node name="Main" type="Node2D"]
 script = ExtResource("1_bwb8r")
@@ -52,8 +56,20 @@ texture = ExtResource("3_85g3d")
 stretch_mode = 1
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Ground"]
-position = Vector2(637.5, 26)
+position = Vector2(642, 26)
 shape = SubResource("RectangleShape2D_ground")
+
+[node name="LeftWall" type="StaticBody2D" parent="."]
+position = Vector2(-10, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="LeftWall"]
+shape = SubResource("RectangleShape2D_wall")
+
+[node name="RightWall" type="StaticBody2D" parent="."]
+position = Vector2(1290, 360)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="RightWall"]
+shape = SubResource("RectangleShape2D_wall")
 
 [node name="Platform1" type="StaticBody2D" parent="."]
 position = Vector2(300, 566)
@@ -106,8 +122,8 @@ position = Vector2(125, 3.5)
 shape = SubResource("RectangleShape2D_platform3")
 
 [node name="Player" parent="." instance=ExtResource("2_player")]
-position = Vector2(32, 656)
-scale = Vector2(0.28, 0.28)
+position = Vector2(32, 648)
+scale = Vector2(0.25, 0.25)
 
 [node name="Obstacle1" type="StaticBody2D" parent="."]
 position = Vector2(600, 620)
@@ -124,7 +140,7 @@ position = Vector2(-170, -21)
 shape = SubResource("RectangleShape2D_1")
 
 [node name="Police1" parent="." instance=ExtResource("4_police")]
-position = Vector2(882, 657)
+position = Vector2(882, 655)
 scale = Vector2(0.24, 0.24)
 
 [node name="Glasses1" type="Area2D" parent="."]
@@ -159,7 +175,7 @@ position = Vector2(1195, 650)
 script = ExtResource("6_friend")
 
 [node name="Sprite2D" type="Sprite2D" parent="Friend"]
-position = Vector2(13.29, 2.00977)
+position = Vector2(13.29, 0.00999999)
 scale = Vector2(0.135156, 0.132341)
 texture = ExtResource("7_friend")
 
@@ -187,3 +203,48 @@ theme_override_font_sizes/font_size = 32
 text = "MENSAJE"
 horizontal_alignment = 1
 vertical_alignment = 1
+
+[node name="TouchControls" type="Control" parent="UI"]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("14_touch")
+
+[node name="LeftButton" type="Button" parent="UI/TouchControls"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 28.0
+offset_top = -180.0
+offset_right = 178.0
+offset_bottom = -30.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "←"
+
+[node name="RightButton" type="Button" parent="UI/TouchControls"]
+anchor_top = 1.0
+anchor_bottom = 1.0
+offset_left = 192.0
+offset_top = -180.0
+offset_right = 342.0
+offset_bottom = -30.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_font_sizes/font_size = 40
+text = "→"
+
+[node name="JumpButton" type="Button" parent="UI/TouchControls"]
+anchor_left = 1.0
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = -220.0
+offset_top = -190.0
+offset_right = -30.0
+offset_bottom = -30.0
+theme_override_colors/font_color = Color(1, 1, 1, 1)
+theme_override_colors/icon_normal_color = Color(1, 0.2, 0.2, 1)
+theme_override_font_sizes/font_size = 40
+text = "SALTAR"

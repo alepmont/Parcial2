@@ -6,3 +6,4 @@
 # - walk_3.png (40x50px)
 # - jump.png (40x50px)
 # - hurt.png (40x50px)
+    
