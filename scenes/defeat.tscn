@@ -1,16 +1,16 @@
-[gd_scene load_steps=3 format=3 uid="uid://bjcvxop6lh1q0"]
+[gd_scene load_steps=3 format=3]
 
-[ext_resource type="Script" uid="uid://ctt8fhsw401qx" path="res://scripts/victory.gd" id="1_victory"]
-[ext_resource type="Texture2D" uid="uid://d1j8mtpotu08o" path="res://imagenes/inicio_img.png" id="2_faxov"]
+[ext_resource type="Script" path="res://scripts/defeat.gd" id="1_defeat"]
+[ext_resource type="Texture2D" uid="uid://d1j8mtpotu08o" path="res://imagenes/inicio_img.png" id="2_bg"]
 
-[node name="Victory" type="Control"]
+[node name="Defeat" type="Control"]
 layout_mode = 3
 anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-script = ExtResource("1_victory")
+script = ExtResource("1_defeat")
 
 [node name="Background" type="TextureRect" parent="."]
 layout_mode = 1
@@ -19,7 +19,7 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-texture = ExtResource("2_faxov")
+texture = ExtResource("2_bg")
 expand_mode = 1
 stretch_mode = 5
 
@@ -30,9 +30,9 @@ anchor_right = 1.0
 anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
-color = Color(0, 0, 0, 0.5)
+color = Color(0.2, 0, 0, 0.62)
 
-[node name="VictoryMessage" type="Label" parent="."]
+[node name="DefeatMessage" type="Label" parent="."]
 layout_mode = 1
 anchors_preset = 8
 anchor_left = 0.5
@@ -40,13 +40,13 @@ anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
 offset_left = -300.0
-offset_top = -100.0
+offset_top = -120.0
 offset_right = 300.0
-offset_bottom = -20.0
+offset_bottom = -35.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 60
-text = "¡LO LOGRASTE!"
+theme_override_font_sizes/font_size = 62
+text = "GAME OVER"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -57,14 +57,14 @@ anchor_left = 0.5
 anchor_top = 0.5
 anchor_right = 0.5
 anchor_bottom = 0.5
-offset_left = -300.0
-offset_top = 20.0
-offset_right = 300.0
-offset_bottom = 80.0
+offset_left = -280.0
+offset_top = -18.0
+offset_right = 280.0
+offset_bottom = 36.0
 grow_horizontal = 2
 grow_vertical = 2
-theme_override_font_sizes/font_size = 30
-text = "Llegaste al concierto con tu amigo"
+theme_override_font_sizes/font_size = 28
+text = "Te quedaste sin vida"
 horizontal_alignment = 1
 vertical_alignment = 1
 
@@ -84,17 +84,20 @@ theme_override_constants/separation = 8
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Jugador:"
+horizontal_alignment = 0
 
 [node name="ScoreLabel" type="Label" parent="PlayerDataContainer"]
 layout_mode = 2
 theme_override_font_sizes/font_size = 24
 text = "Puntaje: 0"
+horizontal_alignment = 0
 
 [node name="BestScoresLabel" type="Label" parent="PlayerDataContainer"]
 layout_mode = 2
 size_flags_vertical = 3
 theme_override_font_sizes/font_size = 17
 text = "Mejores puntuaciones"
+horizontal_alignment = 0
 autowrap_mode = 2
 clip_text = true
 
@@ -112,7 +115,7 @@ offset_bottom = 270.0
 grow_horizontal = 2
 grow_vertical = 2
 theme_override_font_sizes/font_size = 24
-text = "Jugar de Nuevo"
+text = "Reintentar"
 
 [node name="MenuButton" type="Button" parent="."]
 layout_mode = 1
