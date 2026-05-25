@@ -1,112 +1,143 @@
 # Gig in the Sky - Platformer
 
-## Descripción del Proyecto
+## Descripción
 
-**Gig in the Sky** es un videojuego de plataformas 2D al estilo Mario Bros desarrollado en Godot 4.4.1.
+Gig in the Sky es un juego de plataformas 2D desarrollado con Godot 4.
+Controlas a un personaje que busca llegar al concierto y reunirse con su amigo, superando obstáculos, policías y plataformas durante el recorrido.
 
-### Historia
-El jugador controla a un personaje que se dirige a un recital donde debe encontrar a sus amigos perdidos entre la multitud. En el camino, deberá superar obstáculos, evitar policías, y recolectar objetos que lo ayudarán a completar su misión.
+## Objetivo del juego
 
-### Objetivo
-Llegar al final del nivel donde tu amigo te espera para entrar juntos al recital, mientras recolectas objetos útiles y evitas obstáculos que te harán perder vida.
+- Avanzar hasta encontrar al amigo al final del nivel.
+- Mantener la vida evitando daños.
+- Sumar puntaje recolectando objetos y derrotando policías al saltarles encima.
+
+## Estado actual del proyecto
+
+Esta versión ya incluye:
+
+- Menú principal con nombre de jugador, ranking y configuración de audio.
+- Persistencia de datos (nombre, ranking y volumen) entre sesiones.
+- Nivel extendido horizontalmente con cámara que sigue al jugador.
+- Pantallas de victoria y derrota.
+- Sistema de pausa en partida.
 
 ## Controles
 
 ### Teclado
-- **A / Flecha Izquierda**: Mover a la izquierda
-- **D / Flecha Derecha**: Mover a la derecha
-- **W / Flecha Arriba / Espacio**: Saltar
-- **E**: Interactuar (futuras versiones)
 
-### Joystick/Gamepad
-- **Stick Izquierdo / D-Pad**: Movimiento horizontal
-- **Botón A (Xbox) / X (PlayStation)**: Saltar
-- **Botón B (Xbox) / Círculo (PlayStation)**: Interactuar
+- A o Flecha izquierda: mover a la izquierda.
+- D o Flecha derecha: mover a la derecha.
+- W, Flecha arriba o Espacio: saltar.
+- Esc: pausar o reanudar.
 
-## Mecánicas del Juego
+### Gamepad
 
-### Sistema de Vida
-- El jugador comienza con **3 puntos de vida**
-- Al colisionar con obstáculos o policías, pierde 1 punto de vida
-- El jugador tiene invulnerabilidad temporal después de recibir daño (parpadea)
-- Si la vida llega a 0, es Game Over
+- Stick izquierdo o D-Pad: movimiento horizontal.
+- Botón A: saltar.
+- Botón B: acciones de retroceso en menús.
 
-### Objetos Coleccionables
-- **Lentes** (azul claro): Aumentan 1 punto de vida
-- **Botella de agua** (azul): Aumenta 1 punto de vida
-- Los objetos brillan al ser recolectados
+### Móvil
 
-### Obstáculos
-- **Vallas**: Obstáculos estáticos que debes saltar
-- **Policías**: Se mueven en patrulla horizontal, debes evitarlos
+- Botones táctiles en pantalla para izquierda, derecha y salto.
+- Botón de pausa en HUD.
 
-### Final del Nivel
-- Encuentra a tu **amigo** (representado en verde) al final del nivel
-- Al encontrarlo, ingresan juntos al recital y ganas el nivel
+## Mecánicas implementadas
 
-## Características Implementadas
+### Vida y daño
 
-- ✅ Física de plataformas con gravedad
-- ✅ Movimiento horizontal y salto del jugador
-- ✅ Sistema de vida con contador
-- ✅ Objetos coleccionables (lentes y agua)
-- ✅ Obstáculos estáticos (vallas)
-- ✅ Enemigos con patrulla (policías)
-- ✅ Colisiones y daño
-- ✅ Invulnerabilidad temporal con efecto visual
-- ✅ Sistema de victoria al encontrar al amigo
-- ✅ UI para mostrar vida y mensajes
-- ✅ Plataformas y nivel básico
+- Vida inicial: 3 corazones.
+- Al chocar con obstáculos o policías: pierde 1 vida.
+- Invulnerabilidad temporal tras daño.
+- Efecto de parpadeo durante invulnerabilidad.
 
 
-## Guía de Estilo Visual
+### Policías
 
-- **Colores predominantes**: Negros, violetas, luces de neón (verde, azul)
-- **Tipografía**: Estilo arcade/neón
-- **Estética**: Pixel art o cartoon 2D
-- **Resolución**: 1280x720
+- Persiguen al jugador y pueden saltar en ciertas condiciones.
+- Si el jugador les cae desde arriba (pisotón), el policía se elimina.
+- Al eliminar un policía, reaparece otro en el extremo opuesto tras un breve delay.
 
-## Cómo Jugar
+### Puntaje
 
-1. Abre Godot Engine 4.2 o superior
-2. Importa el proyecto seleccionando el archivo `project.godot`
-3. Presiona F5 o haz clic en "Play" para iniciar el juego
-4. ¡Encuentra a tu amigo y entra al recital!
+- Los coleccionables suman puntaje.
+- Pisar un policía da puntaje extra.
+- Se muestra feedback visual flotante del puntaje por pisotón.
 
-## Estructura del Proyecto
+### Coleccionables
 
-```
+- Lentes.
+- Botella de agua.
+- Ubicados en el piso/plataformas del nivel .
+
+## UI y flujo de escenas
+
+- Menú principal:
+	- Iniciar partida.
+	- Configurar audio (música y efectos).
+	- Ver mejores puntuaciones.
+	- Guardar nombre de jugador.
+- Pausa en juego:
+	- Volver.
+	- Menú principal.
+	- Salir.
+- Pantalla de victoria y derrota:
+	- Muestran nombre, puntaje y ranking.
+	- Botones para reintentar o volver al menú.
+
+## Persistencia
+
+- Datos de partida: user://savegame.json
+	- Nombre de jugador.
+	- Ranking de mejores puntajes.
+- Configuración de audio: user://settings.cfg
+	- Volumen de música.
+	- Volumen de efectos.
+
+## Audio
+
+- Música de menú y nivel con volumen configurable.
+- Efectos de daño/salto/recolección según disponibilidad de recursos.
+- Previsualización de SFX al mover slider de efectos.
+
+## Estructura principal del proyecto
+
+```text
 juego/
 ├── project.godot
 ├── scenes/
-│   ├── main.tscn          # Escena principal del nivel
-│   └── player.tscn        # Escena del jugador
+│   ├── menu.tscn
+│   ├── main.tscn
+│   ├── player.tscn
+│   ├── police.tscn
+│   ├── victory.tscn
+│   └── defeat.tscn
 ├── scripts/
-│   ├── main.gd            # Lógica principal del juego
-│   ├── player.gd          # Movimiento y física del jugador
-│   ├── collectible.gd     # Objetos coleccionables
-│   ├── obstacle.gd        # Vallas estáticas
-│   ├── police.gd          # Enemigos con patrulla
-│   └── friend.gd          # NPC amigo (final del nivel)
-├── assets/
+│   ├── menu.gd
+│   ├── main.gd
+│   ├── player.gd
+│   ├── police.gd
+│   ├── collectible.gd
+│   ├── defeat.gd
+│   ├── victory.gd
+│   ├── save_data.gd
+│   ├── audio_settings.gd
+│   └── scene_transition.gd
 ├── sprites/
-└── sounds/
+├── sounds/
+└── assets/
 ```
 
-## Historias de Usuario Implementadas
+## Ejecución
 
-1. ✅ Como jugador, quiero controlar a un personaje que se dirige a un recital
-2. ⏳ Como jugador, quiero que los NPCs reaccionen cuando interactúe con ellos
-3. ✅ Como jugador, quiero recoger objetos que me ayuden a avanzar
-4. ✅ Como jugador, quiero ver un mensaje de finalización al encontrar a mi amigo
+1. Abrir el proyecto en Godot 4.4.x.
+2. Cargar project.godot.
+3. Ejecutar con F5.
 
 ## Tecnologías
 
-- **Engine**: Godot 4.4.1
-- **Lenguaje**: GDScript
-- **Plataforma**: PC (multiplataforma)
+- Engine: Godot 4.4.x
+- Lenguaje: GDScript
 
 ---
 
-**Versión**: 1.0 (Prototipo)  
-**Desarrollado para**: Proyecto de Arquitectura y Diseño de Interfaces
+Versión del proyecto: Prototipo jugable avanzado
